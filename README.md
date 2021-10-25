@@ -19,3 +19,4 @@ sistema desenvolvido para ler as informações de um determinado PDF, filtrar as
 
    - coloque o pdf na pasta PDFs
    -  vá nas raiz do projeto e rode `npm run convert`
+   -  na pasta EXCEL o arquivo estará convertido
