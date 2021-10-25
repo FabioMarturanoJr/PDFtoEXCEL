@@ -1,6 +1,6 @@
 const path = require('path');
 
-const pdfPath = path.resolve(__dirname, 'PDFs', 'Relatório_RE.pdf');
+const pdfPath = path.resolve(__dirname, 'PDFs', 'Relatório RE.pdf');
 
 const ReadPDF = require('./models/pdfReader');
 

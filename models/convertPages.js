@@ -42,7 +42,6 @@ const match =  /NOME TRABALHADOR/i;
 const notMatch =  /LOGRADOURO/i;
 const PIS = /\d{2}.\d{5}.\d{2}-\d/;
 const DATE = "(\\d{2}/\\d{2}/\\d{4})";
-// const NAME = /^[a-zA-Z ]+$/;
 
 const isCorrectPage = (page) => page.some((str) => str.match(match)) 
   && !page.some((str) => str.match(notMatch));
@@ -69,8 +68,7 @@ const separateEmployees = (page, separetors) => {
 
     const employeeData = page.slice(startData, endData);
     const employee = { ...analyzer(employeeData.length, employeeData, haveDeposito(page[separator - 1])) };    
-    
-    // console.log(employeeData.length, employeeData);
+
     employees.push(employee);
   });
   return employees
@@ -79,17 +77,12 @@ const separateEmployees = (page, separetors) => {
 const convertPages = (pages) => {
   let employeesData = [];
   for (let i = 0; i < pages.length; i++) {
-  // for (let i = 64; i < 65; i++) {
-    // fintro de paginas ok
     if (isCorrectPage(pages[i])) {
-      // criar a remoção das informaçoes nescessárias verificar os campos vazios
       const separetors = findSeparators(pages[i]);
       employeesData = [...employeesData, ...separateEmployees(pages[i], separetors)];
       console.log('pagina', i + 1, isCorrectPage(pages[i]) && 'carregada');
     }
   }
-  // console.log('total funcionarios',  employeesData);
-  // console.log('total funcionarios',  employeesData.length);
   saveToExcel(employeesData);
   console.log('arquivo convertido');
 };
