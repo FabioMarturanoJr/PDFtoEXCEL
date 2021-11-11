@@ -40,6 +40,7 @@ const saveToExcel = (employees) => {
 
 const match =  /NOME TRABALHADOR/i;
 const notMatch =  /LOGRADOURO/i;
+const TOTAIS = 'TOTAIS';
 const PIS = /\d{2}.\d{5}.\d{2}-\d/;
 const DATE = "(\\d{2}/\\d{2}/\\d{4})";
 
@@ -59,25 +60,62 @@ const findSeparators = (page) => {
   return separetors;
 };
 
+const structureEmproyeesData = (employeeData) => {
+  const structEmployee = []
+  // console.log(employeeData);
+
+  employeeData.forEach((data, index) => {
+    switch (true) {
+      case isPIS(data) && data.length == 26:
+        structEmployee.push(data.substring(0, 14));
+        structEmployee.push(data.substring(14, 24));
+        structEmployee.push(data.substring(24));
+        break;
+      case data.includes(TOTAIS) || (data.split(',').length - 1) > 3:
+        break;
+      case (data.split(',').length - 1) > 1:
+        const indexToSeparete = data.indexOf(',');
+        structEmployee.push(data.substring(0, indexToSeparete + 3));
+        structEmployee.push(data.substring(indexToSeparete + 3));
+        break;
+      default:
+        structEmployee.push(data)
+        break;
+    }
+  });
+  // trata nome não aparece
+  console.log(structEmployee.some((data) => data.length > 14));
+  console.log(structEmployee);
+  return structEmployee;
+};
+
 const separateEmployees = (page, separetors) => {
   const employees = [];
   separetors.forEach((separator, index) => {
     const startData = haveDeposito(page[separator - 1]) ? separator - 1 : separator;
+    //verificar a pega do ultimo elemento.
     const endSeparator  = haveDeposito(page[separator - 1]) ? separetors[index + 1] - 1 : separetors[index + 1];
     const endData = separetors[index + 1] - 1 ? endSeparator : page.length;
-
-    const employeeData = page.slice(startData, endData);
+    
+    let employeeData = page.slice(startData, endData);
+    // tratar os dados antes de separar o employees, dados concatenados
+    employeeData = structureEmproyeesData(employeeData)
+    
     const employee = { ...analyzer(employeeData.length, employeeData, haveDeposito(page[separator - 1])) };    
 
     employees.push(employee);
   });
+
+  // console.log(employees);
   return employees
 };
 
 const convertPages = (pages) => {
   let employeesData = [];
+  // for (let i = 0; i < 2; i++) {
   for (let i = 0; i < pages.length; i++) {
     if (isCorrectPage(pages[i])) {
+    // if (isCorrectPage(pages[i]) && i == 1) {
       const separetors = findSeparators(pages[i]);
       employeesData = [...employeesData, ...separateEmployees(pages[i], separetors)];
       console.log('pagina', i + 1, isCorrectPage(pages[i]) && 'carregada');
