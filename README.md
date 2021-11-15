@@ -17,6 +17,6 @@ sistema desenvolvido para ler as informações de um determinado PDF, filtrar as
 
 ### 3 - Converter arquivo
 
-   - coloque o pdf na pasta PDFs, arquivo esperado `Relatório RE.pdf`
+   - coloque o pdf na pasta PDF, arquivo esperado `Relatório RE.pdf`
    -  vá nas raiz do projeto e rode `npm run convert`
    -  na pasta EXCEL o arquivo estará convertido
