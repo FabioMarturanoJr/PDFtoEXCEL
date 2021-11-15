@@ -3,51 +3,53 @@ const analyzer = (employeeLength, employeeData, haveDeposito) => {
   const employee = {};
   // console.log(employeeLength, employeeData, haveDeposito);
 
+  const dontHave = '0';
+
   if (employeeLength == 5) {
     employee.name = employeeData[4];
-    employee.remSem = '0'; // number
-    employee.rem = '0'; // number
+    employee.remSem = dontHave; // number
+    employee.rem = dontHave; // number
     employee.pis = employeeData[1];
-    employee.baseSalPrev = '0'; // number
+    employee.baseSalPrev = dontHave; // number
     employee.admissao = employeeData[2];
-    employee.conSeg = '0'; // number
+    employee.conSeg = dontHave; // number
     employee.cat = employeeData[3];
-    employee.ocor = '0'; // number
+    employee.ocor = dontHave; // number
     employee.dataCodMov = employeeData[0];
-    employee.cbo = '0';
-    employee.jam = '0'; // number
+    employee.cbo = dontHave;
+    employee.jam = dontHave; // number
     return employee;
   }
 
   if (employeeLength == 6) {
     employee.name = employeeData[5];
-    employee.remSem = '0'; // number
-    employee.rem = '0'; // number
+    employee.remSem = dontHave; // number
+    employee.rem = dontHave; // number
     employee.pis = employeeData[1];
-    employee.baseSalPrev = '0'; // number
+    employee.baseSalPrev = dontHave; // number
     employee.admissao = employeeData[2];
-    employee.conSeg = '0'; // number
+    employee.conSeg = dontHave; // number
     employee.cat = employeeData[3];
-    employee.ocor = '0'; // number
+    employee.ocor = dontHave; // number
     employee.dataCodMov = employeeData[0];
     employee.cbo = employeeData[4];
-    employee.jam = '0'; // number
+    employee.jam = dontHave; // number
     return employee;
   }
 
   if (employeeLength == 7) {
     employee.name = employeeData[5] + employeeData[6];
-    employee.remSem = '0'; // number
-    employee.rem = '0'; // number
+    employee.remSem = dontHave; // number
+    employee.rem = dontHave; // number
     employee.pis = employeeData[1];
-    employee.baseSalPrev = '0'; // number
+    employee.baseSalPrev = dontHave; // number
     employee.admissao = employeeData[2];
-    employee.conSeg = '0'; // number
+    employee.conSeg = dontHave; // number
     employee.cat = employeeData[3];
-    employee.ocor = '0'; // number
+    employee.ocor = dontHave; // number
     employee.dataCodMov = employeeData[0];
     employee.cbo = employeeData[4];
-    employee.jam = '0'; // number
+    employee.jam = dontHave; // number
     return employee;
   }
 
@@ -65,7 +67,7 @@ const analyzer = (employeeLength, employeeData, haveDeposito) => {
     employee.conSeg = employeeData[8]; // number
     employee.cat = employeeData[2];
     employee.ocor = employeeData[10]; // number
-    employee.dataCodMov = '0';
+    employee.dataCodMov = dontHave;
     employee.cbo = employeeData[3];
     employee.jam = employeeData[7]; // number
     return employee;
@@ -82,7 +84,7 @@ const analyzer = (employeeLength, employeeData, haveDeposito) => {
     employee.cat = employeeData[3];
     employee.ocor = employeeData[10]; // number
     employee.dataCodMov = employeeData[0];
-    employee.cbo = '0';
+    employee.cbo = dontHave;
     employee.jam = employeeData[7]; // number
     return employee;
   }  
@@ -97,7 +99,7 @@ const analyzer = (employeeLength, employeeData, haveDeposito) => {
     employee.conSeg = employeeData[8]; // number
     employee.cat = employeeData[2];
     employee.ocor = employeeData[10]; // number
-    employee.dataCodMov = '0';
+    employee.dataCodMov = dontHave;
     employee.cbo = employeeData[3];
     employee.jam = employeeData[7]; // number
     return employee;
@@ -135,6 +137,22 @@ const analyzer = (employeeLength, employeeData, haveDeposito) => {
     return employee;
   }
 
+  if (employeeLength == 17 && !haveDeposito) {
+    employee.name = employeeData[4];
+    employee.remSem = employeeData[5]; // number
+    employee.rem = employeeData[6]; // number
+    employee.pis = employeeData[0];
+    employee.baseSalPrev = employeeData[9]; // number
+    employee.admissao = employeeData[1];
+    employee.conSeg = employeeData[8]; // number
+    employee.cat = employeeData[2];
+    employee.ocor = employeeData[10]; // number
+    employee.dataCodMov = dontHave;
+    employee.cbo = employeeData[3];
+    employee.jam = employeeData[7]; // number
+    return employee;
+  }
+
   if (employeeLength == 18 && !haveDeposito) {
     employee.name = employeeData[4];
     employee.remSem = employeeData[5]; // number
@@ -145,7 +163,7 @@ const analyzer = (employeeLength, employeeData, haveDeposito) => {
     employee.conSeg = employeeData[8]; // number
     employee.cat = employeeData[2];
     employee.ocor = employeeData[10]; // number
-    employee.dataCodMov = '0';
+    employee.dataCodMov = dontHave;
     employee.cbo = employeeData[3];
     employee.jam = employeeData[7]; // number
     return employee;
@@ -161,11 +179,14 @@ const analyzer = (employeeLength, employeeData, haveDeposito) => {
     employee.conSeg = employeeData[8]; // number
     employee.cat = employeeData[2];
     employee.ocor = employeeData[10]; // number
-    employee.dataCodMov = '0';
+    employee.dataCodMov = dontHave;
     employee.cbo = employeeData[3];
     employee.jam = employeeData[7]; // number
     return employee;
   }
+
+  // check non-existent conditions
+  // if (Object.keys(employee).length == 0) console.log(employeeLength, employeeData, haveDeposito);
 
   return employee;
 };

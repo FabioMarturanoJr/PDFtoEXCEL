@@ -84,8 +84,8 @@ const structureEmproyeesData = (employeeData) => {
     }
   });
   // trata nome não aparece
-  console.log(structEmployee.some((data) => data.length > 14));
-  console.log(structEmployee);
+  // console.log(structEmployee.some((data) => data.length > 14));
+  // console.log(structEmployee);
   return structEmployee;
 };
 
@@ -93,13 +93,16 @@ const separateEmployees = (page, separetors) => {
   const employees = [];
   separetors.forEach((separator, index) => {
     const startData = haveDeposito(page[separator - 1]) ? separator - 1 : separator;
-    //verificar a pega do ultimo elemento.
-    const endSeparator  = haveDeposito(page[separator - 1]) ? separetors[index + 1] - 1 : separetors[index + 1];
-    const endData = separetors[index + 1] - 1 ? endSeparator : page.length;
+    let endData = 0;
+
+    if (!separetors[index + 1]) {
+      endData = page.length
+    } else {
+      endData = haveDeposito(page[separetors[index + 1] - 1]) ? separetors[index + 1] - 1 : separetors[index + 1];
+    }
     
     let employeeData = page.slice(startData, endData);
-    // tratar os dados antes de separar o employees, dados concatenados
-    employeeData = structureEmproyeesData(employeeData)
+    employeeData = structureEmproyeesData(employeeData);
     
     const employee = { ...analyzer(employeeData.length, employeeData, haveDeposito(page[separator - 1])) };    
 
@@ -112,7 +115,6 @@ const separateEmployees = (page, separetors) => {
 
 const convertPages = (pages) => {
   let employeesData = [];
-  // for (let i = 0; i < 2; i++) {
   for (let i = 0; i < pages.length; i++) {
     if (isCorrectPage(pages[i])) {
     // if (isCorrectPage(pages[i]) && i == 1) {
