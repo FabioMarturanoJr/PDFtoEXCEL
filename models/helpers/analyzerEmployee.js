@@ -2,7 +2,6 @@ const analyzer = (employeeLength, employeeData, haveDeposito) => {
 
   const employee = {};
   // console.log(employeeLength, employeeData, haveDeposito);
-
   const dontHave = '0';
 
   if (employeeLength == 5) {
@@ -53,9 +52,9 @@ const analyzer = (employeeLength, employeeData, haveDeposito) => {
     return employee;
   }
 
-  if (employeeLength == 8 && !haveDeposito) {
-    
-  }
+  // if (employeeLength == 8 && !haveDeposito) {
+  //   console.log(employeeLength, employeeData, haveDeposito);
+  // }
 
   if (employeeLength == 11 && !haveDeposito) {
     employee.name = employeeData[4];
@@ -191,6 +190,4 @@ const analyzer = (employeeLength, employeeData, haveDeposito) => {
   return employee;
 };
 
-module.exports = {
-  analyzer,
-};
+module.exports = { analyzer };
